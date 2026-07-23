@@ -2,7 +2,7 @@ services:
   # Backend API
   - type: web
     name: supply-chain-api
-    env: node
+    runtime: node
     region: oregon
     rootDir: backend
     buildCommand: npm install && npm run build
@@ -24,6 +24,6 @@ services:
   # Frontend App
   - type: web
     name: supply-chain-app
-    env: static
+    runtime: static
     buildCommand: ""
     staticPublishPath: frontend
