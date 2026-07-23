@@ -1,11 +1,6 @@
--- Drop existing tables if they exist
-DROP TABLE IF EXISTS stock_log;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS suppliers;
-DROP TABLE IF EXISTS users;
+-- Initialize tables safely
 
--- Users table
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
@@ -16,7 +11,7 @@ CREATE TABLE users (
 );
 
 -- Suppliers table
-CREATE TABLE suppliers (
+CREATE TABLE IF NOT EXISTS suppliers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT,
@@ -26,7 +21,7 @@ CREATE TABLE suppliers (
 );
 
 -- Products table
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     sku TEXT UNIQUE NOT NULL,
@@ -39,7 +34,7 @@ CREATE TABLE products (
 );
 
 -- Stock logs table
-CREATE TABLE stock_log (
+CREATE TABLE IF NOT EXISTS stock_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
     change_amount INTEGER NOT NULL,
@@ -49,5 +44,5 @@ CREATE TABLE stock_log (
 );
 
 -- Seed default Admin user: admin@supply.com / admin123
-INSERT INTO users (name, email, password, role)
+INSERT OR IGNORE INTO users (name, email, password, role)
 VALUES ('Admin', 'admin@supply.com', '$2b$12$OqjeLqI1e2V5yvkNEEmmp.CVWTv5eD.QOrTEx.s9n5SOuck.HtWVe', 'admin');
