@@ -25,6 +25,5 @@ services:
   - type: web
     name: supply-chain-app
     env: static
-    region: oregon
     buildCommand: ""
     staticPublishPath: frontend
