@@ -15,7 +15,15 @@ if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
 }
 
-const db = new Database(dbPath);
+let db: Database.Database;
+try {
+    db = new Database(dbPath);
+} catch (err) {
+    console.error(`⚠️ Failed to open DB at ${dbPath}, falling back to /tmp/supply_chain.db`, err);
+    const fallbackPath = '/tmp/supply_chain.db';
+    db = new Database(fallbackPath);
+    console.log(`✅ SQLite database opened (fallback) at ${fallbackPath}`);
+}
 
 // Enable WAL mode for better concurrency
 db.pragma('journal_mode = WAL');

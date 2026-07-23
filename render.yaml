@@ -13,13 +13,9 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: DATABASE_PATH
-        value: /data/sqlite/supply_chain.db
+        value: /tmp/supply_chain.db
       - key: FRONTEND_URL
         value: https://supply-chain-app.onrender.com
-    disk:
-      name: sqlite-data
-      mountPath: /data/sqlite
-      sizeGB: 1
 
   # Frontend App
   - type: web
